@@ -1,0 +1,23 @@
+{
+  "name": "Porychu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel src/index.html",
+    "build": "NODE_ENV=production && parcel build src/index.html --out-dir www"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babylonjs": "^4.1.0",
+    "simple-peer": "^9.7.2"
+  },
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "parcel-plugin-clean-dist": "0.0.6",
+    "typescript": "^3.9.7"
+  }
+}
