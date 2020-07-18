@@ -1,6 +1,6 @@
 import { Engine, Scene, ArcRotateCamera, Vector3, HemisphericLight, MeshBuilder, Mesh } from 'babylonjs';
 
-/* const canvas:HTMLCanvasElement = document.querySelector('#renderCanvas');
+const canvas:HTMLCanvasElement = document.querySelector('#renderCanvas');
 console.log(canvas);
 const engine:Engine = new Engine(canvas, true);
 
@@ -15,7 +15,7 @@ const sphere:Mesh = MeshBuilder.CreateSphere('sphere', {diameter:1},scene);
 
 engine.runRenderLoop(()=>{
     scene.render();
-}); */
+});
 
 
 import SimplePeer from 'simple-peer';
