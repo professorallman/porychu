@@ -44,6 +44,7 @@ export class Client{
         });
     }
     send(type:MessageType, data?:Object){
+        console.log(type,data,this.peer);
         this.peer.send(JSON.stringify({type,data}));
     }
     on(messageType:MessageType, callback:Callback){

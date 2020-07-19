@@ -21,9 +21,7 @@ document.querySelector('#hostConnect').addEventListener('click',async ()=>{
 }); 
 
 client.on('connected',(data)=>{
-    const connectionResult =  document.querySelector('#connectionResult');
-    connectionResult.textContent = 'Connected successfullyyy';
-    connectionResult.classList.add('success');
+    document.querySelector('#networkSetup').remove();
     const game:Game = new Game(client);
     game.start();
 });

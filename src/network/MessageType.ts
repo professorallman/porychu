@@ -1,1 +1,1 @@
-export type MessageType = 'connected';
+export type MessageType = 'connected' | 'createPlayer' | 'playerMove';
