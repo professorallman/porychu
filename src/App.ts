@@ -1,51 +1,29 @@
-import { Engine, Scene, ArcRotateCamera, Vector3, HemisphericLight, MeshBuilder, Mesh } from 'babylonjs';
+import { Client } from './network/Client';
+import { Game } from './game/Game';
 
-const canvas:HTMLCanvasElement = document.querySelector('#renderCanvas');
-console.log(canvas);
-const engine:Engine = new Engine(canvas, true);
+const client = new Client();
 
-const scene:Scene = new Scene(engine);
-
-const camera: ArcRotateCamera = new ArcRotateCamera('Camera', Math.PI / 2, Math.PI/2, 2, Vector3.Zero(), scene);
-
-const light1:HemisphericLight = new HemisphericLight('light1', new Vector3(1,1,0),scene);
-
-const sphere:Mesh = MeshBuilder.CreateSphere('sphere', {diameter:1},scene);
-
-
-engine.runRenderLoop(()=>{
-    scene.render();
+document.querySelector('#host').addEventListener('click',async ()=>{
+    const offer = await client.host();
+    document.querySelector<HTMLInputElement>('input[name="hostcode"]').value = btoa(offer);
 });
 
-
-import SimplePeer from 'simple-peer';
-
-const p = new SimplePeer({
-    initiator: location.hash === '#1',
-    trickle:false
+document.querySelector('#join').addEventListener('click',async ()=>{
+    const offer = document.querySelector<HTMLInputElement>('input[name="remoteHostCode"]').value;
+    const reply = await client.join(atob(offer));
+    document.querySelector<HTMLInputElement>('input[name="joinCode"]').value = btoa(reply);
 });
 
-console.log(p);
+document.querySelector('#hostConnect').addEventListener('click',async ()=>{
+    const answer = document.querySelector<HTMLInputElement>('input[name="remoteJoinCode"').value;
+    const connected = await client.connect(atob(answer));
 
-p.on('error', err => console.log('error', err))
+}); 
 
-p.on('signal', data => {
-  console.log('SIGNAL', JSON.stringify(data))
-  document.querySelector('#outgoing').textContent = JSON.stringify(data)
-})
-
-document.querySelector('form').addEventListener('submit', ev => {
-  ev.preventDefault()
-  p.signal(JSON.parse(document.querySelector('#incoming').value))
-})
-
-p.on('connect', () => {
-  console.log('CONNECT')
-  p.send('whatever' + Math.random())
-})
-
-p.on('data', data => {
-  console.log('data: ' + data)
+client.on('connected',(data)=>{
+    const connectionResult =  document.querySelector('#connectionResult');
+    connectionResult.textContent = 'Connected successfullyyy';
+    connectionResult.classList.add('success');
+    const game:Game = new Game(client);
+    game.start();
 });
-
-

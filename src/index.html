@@ -28,12 +28,41 @@
           word-wrap: break-word;
           white-space: normal;
         }
+        section{
+          display: flex;
+          flex-direction: column;
+        }
+        .success{
+          color:green;
+        }
       </style>
-      <form>
-        <textarea id="incoming"></textarea>
-        <button type="submit">submit</button>
-      </form>
-      <pre id="outgoing"></pre>
+      <section>
+        <h1>Host a match</h1>
+        <button id="host">Start Host</button>
+        <label>Your host code:
+          <input type="text" disabled="true" name="hostcode"/>
+        </label>
+        <label>
+          Their join code:
+          <input type="text" name="remoteJoinCode"/>
+        </label>
+        <button id="hostConnect">Connect</button>
+        <pre id="connectionResult"></pre>
+      </section>
+      <hr/>
+      <section>
+        <h1>Join a match</h1>
+        <label>
+          Their host code:
+          <input type="text" name="remoteHostCode"/>
+        </label>
+        <button id="join">Join Host</button>
+        <label>
+          Your join code:
+          <input type="text" disabled="true" name="joinCode"/>
+        </label>
+      </section>
+    <hr/>
     <canvas id="renderCanvas"></canvas>
 </body>
 </html>
